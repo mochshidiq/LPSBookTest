@@ -1,0 +1,112 @@
+﻿@model LPSBookTest.Models.BukuModel
+
+@{
+    ViewData["Title"] = "Tambah Buku";
+}
+
+<h1>Tambah Buku</h1>
+
+<hr />
+
+<form asp-action="Create" method="post">
+
+    <div asp-validation-summary="ModelOnly"
+         class="text-danger">
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Judul"
+               class="form-label">
+        </label>
+
+        <input asp-for="Judul"
+               class="form-control" />
+
+        <span asp-validation-for="Judul"
+              class="text-danger">
+        </span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Penulis"
+               class="form-label">
+        </label>
+
+        <input asp-for="Penulis"
+               class="form-control" />
+
+        <span asp-validation-for="Penulis"
+              class="text-danger">
+        </span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="JenisBukuId"
+               class="form-label">
+            Jenis Buku
+        </label>
+
+        <select asp-for="JenisBukuId"
+                asp-items="ViewBag.JenisBuku"
+                class="form-select">
+
+            <option value="">
+                -- Pilih Jenis Buku --
+            </option>
+
+        </select>
+
+        <span asp-validation-for="JenisBukuId"
+              class="text-danger">
+        </span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="TanggalRilis"
+               class="form-label">
+            Tanggal Rilis
+        </label>
+
+        <input asp-for="TanggalRilis"
+               type="date"
+               class="form-control" />
+
+        <span asp-validation-for="TanggalRilis"
+              class="text-danger">
+        </span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="JumlahHalaman"
+               class="form-label">
+            Jumlah Halaman
+        </label>
+
+        <input asp-for="JumlahHalaman"
+               type="number"
+               min="1"
+               class="form-control" />
+
+        <span asp-validation-for="JumlahHalaman"
+              class="text-danger">
+        </span>
+    </div>
+
+    <button type="submit"
+            class="btn btn-primary">
+        Simpan
+    </button>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Kembali
+    </a>
+
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync(
+            "_ValidationScriptsPartial");
+    }
+}
