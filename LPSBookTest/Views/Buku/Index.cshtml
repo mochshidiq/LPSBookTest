@@ -1,0 +1,108 @@
+﻿@model IEnumerable<LPSBookTest.Models.BukuModel>
+
+@{
+    ViewData["Title"] = "Data Buku";
+}
+
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Data Buku</h1>
+
+    <div>
+        <a asp-action="Export"
+           class="btn btn-success">
+            Export CSV
+        </a>
+
+        <a asp-action="Create"
+           class="btn btn-primary">
+            Tambah Buku
+        </a>
+    </div>
+</div>
+
+
+<form asp-action="Index"
+      method="get"
+      class="row g-2 mb-3">
+
+    <div class="col-md-6">
+        <input type="text"
+               name="search"
+               value="@ViewBag.Search"
+               class="form-control"
+               placeholder="Cari judul, penulis, atau jenis buku..." />
+    </div>
+
+    <div class="col-auto">
+        <button type="submit"
+                class="btn btn-primary">
+            Search
+        </button>
+    </div>
+
+    <div class="col-auto">
+        <a asp-action="Index"
+           class="btn btn-secondary">
+            Reset
+        </a>
+    </div>
+</form>
+
+<table class="table table-bordered table-striped">
+
+    <thead>
+        <tr>
+            <th>Judul</th>
+            <th>Penulis</th>
+            <th>Jenis Buku</th>
+            <th>Tanggal Rilis</th>
+            <th>Jumlah Halaman</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Judul
+                </td>
+
+                <td>
+                    @item.Penulis
+                </td>
+
+                <td>
+                    @item.JenisBuku?.JenisBuku
+                </td>
+
+                <td>
+                    @item.TanggalRilis.ToString("dd-MM-yyyy")
+                </td>
+
+                <td>
+                    @item.JumlahHalaman
+                </td>
+
+                <td>
+                    <a asp-action="Edit"
+                       asp-route-id="@item.Id"
+                       class="btn btn-sm btn-warning">
+                        Edit
+                    </a>
+
+                    <a asp-action="Delete"
+                       asp-route-id="@item.Id"
+                       class="btn btn-sm btn-danger">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>

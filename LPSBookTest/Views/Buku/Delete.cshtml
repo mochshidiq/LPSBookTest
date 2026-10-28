@@ -1,0 +1,57 @@
+﻿@model LPSBookTest.Models.BukuModel
+
+@{
+    ViewData["Title"] = "Hapus Buku";
+}
+
+<h1>Hapus Buku</h1>
+
+<div class="alert alert-warning">
+    Apakah Anda yakin ingin menghapus buku ini?
+</div>
+
+<dl class="row">
+
+    <dt class="col-sm-3">
+        Judul
+    </dt>
+
+    <dd class="col-sm-9">
+        @Model.Judul
+    </dd>
+
+    <dt class="col-sm-3">
+        Penulis
+    </dt>
+
+    <dd class="col-sm-9">
+        @Model.Penulis
+    </dd>
+
+    <dt class="col-sm-3">
+        Jumlah Halaman
+    </dt>
+
+    <dd class="col-sm-9">
+        @Model.JumlahHalaman
+    </dd>
+
+</dl>
+
+<form asp-action="Delete"
+      method="post">
+
+    <input type="hidden"
+           asp-for="Id" />
+
+    <button type="submit"
+            class="btn btn-danger">
+        Hapus
+    </button>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Batal
+    </a>
+
+</form>

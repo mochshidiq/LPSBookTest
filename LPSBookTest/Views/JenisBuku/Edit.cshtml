@@ -1,0 +1,45 @@
+﻿@model LPSBookTest.Models.JenisBukuModel
+
+@{
+    ViewData["Title"] = "Edit Jenis Buku";
+}
+
+<h1>Edit Jenis Buku</h1>
+
+<hr />
+
+<form asp-action="Edit" method="post">
+
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label asp-for="JenisBuku"
+               class="form-label">
+            Jenis Buku
+        </label>
+
+        <input asp-for="JenisBuku"
+               class="form-control"
+               maxlength="50" />
+
+        <span asp-validation-for="JenisBuku"
+              class="text-danger"></span>
+    </div>
+
+    <button type="submit"
+            class="btn btn-primary">
+        Simpan Perubahan
+    </button>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Kembali
+    </a>
+
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
