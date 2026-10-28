@@ -3,7 +3,7 @@ using Microsoft.Data.SqlClient;
 using System.Text;
 
 const string connectionString =
-    @"Server=localhost\SQLEXPRESS01;Database=LPSBookTestDb;Trusted_Connection=True;TrustServerCertificate=True;";
+    @"Server=localhost\SQLEXPRESS01;Database=LPSBookTest;Trusted_Connection=True;TrustServerCertificate=True;";
 
 var tables = new[]
 {

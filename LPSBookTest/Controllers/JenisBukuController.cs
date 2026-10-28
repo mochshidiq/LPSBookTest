@@ -30,15 +30,22 @@ namespace LPSBookTest.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(JenisBukuModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return View(model);
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+
+                await _repository.AddAsync(model);
+                await _repository.SaveAsync();
+
+                return RedirectToAction(nameof(Index));
             }
-
-            await _repository.AddAsync(model);
-            await _repository.SaveAsync();
-
-            return RedirectToAction(nameof(Index));
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
         }
 
         public async Task<IActionResult> Edit(int id)
@@ -59,29 +66,36 @@ namespace LPSBookTest.Controllers
             int id,
             JenisBukuModel model)
         {
-            if (id != model.Id)
+            try
+            {
+                if (id != model.Id)
+                {
+                    return BadRequest();
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+
+                var existingData = await _repository.GetByIdAsync(id);
+
+                if (existingData == null)
+                {
+                    return NotFound();
+                }
+
+                existingData.JenisBuku = model.JenisBuku;
+
+                _repository.Update(existingData);
+                await _repository.SaveAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
             {
                 return BadRequest();
             }
-
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var existingData = await _repository.GetByIdAsync(id);
-
-            if (existingData == null)
-            {
-                return NotFound();
-            }
-
-            existingData.JenisBuku = model.JenisBuku;
-
-            _repository.Update(existingData);
-            await _repository.SaveAsync();
-
-            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Delete(int id)
@@ -100,17 +114,24 @@ namespace LPSBookTest.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var data = await _repository.GetByIdAsync(id);
-
-            if (data == null)
+            try
             {
-                return NotFound();
+                var data = await _repository.GetByIdAsync(id);
+
+                if (data == null)
+                {
+                    return NotFound();
+                }
+
+                _repository.Delete(data);
+                await _repository.SaveAsync();
+
+                return RedirectToAction(nameof(Index));
             }
-
-            _repository.Delete(data);
-            await _repository.SaveAsync();
-
-            return RedirectToAction(nameof(Index));
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
         }
     }
 }

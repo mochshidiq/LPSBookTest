@@ -41,11 +41,11 @@ namespace LPSBookTest.Controllers
             var csv = new StringBuilder();
 
             csv.AppendLine(
-                "Id,Judul,Penulis,Jenis Buku,Tanggal Rilis,Jumlah Halaman");
+                "Judul,Penulis,Jenis Buku,Tanggal Rilis,Jumlah Halaman");
 
             foreach (var buku in data)
             {
-                var id = buku.Id.ToString();
+                
                 var judul = EscapeCsv(buku.Judul);
                 var penulis = EscapeCsv(buku.Penulis);
                 var jenisBuku = EscapeCsv(
@@ -58,7 +58,7 @@ namespace LPSBookTest.Controllers
                     buku.JumlahHalaman.ToString();
 
                 csv.AppendLine(
-                    $"{id},{judul},{penulis},{jenisBuku},{tanggalRilis},{jumlahHalaman}");
+                    $"{judul},{penulis},{jenisBuku},{tanggalRilis},{jumlahHalaman}");
             }
 
             var bytes = Encoding.UTF8.GetPreamble()
